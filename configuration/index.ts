@@ -1,0 +1,1 @@
+export const mongodbURI = "mongodb://localhost:27017/foodOrder"
