@@ -1,9 +1,15 @@
 const express = require("express")
 const router = express.Router()
 import { Request, Response, NextFunction } from "express"
-import { createVendor, getVendors, getVendorById } from "../controller/Vendor.controller"
-router.get("/vendors", getVendors)
-router.post("/createVendor", createVendor)
-router.get("/:id", getVendorById)
-
-export { router as VendorRouter }
+import { getSingleVendorProfile, updateVendorService, vendorLogin } from "../controller/Vendors.controller"
+import { authenticated } from "../middleware"
+router.use(authenticated)
+router.get("/", (req: Request, res: Response) => {
+    return res.status(200).json({
+        message: "Hello from Vendor"
+    })
+})
+router.post("/login", vendorLogin)
+router.get("/profile", getSingleVendorProfile)
+router.patch("/service", updateVendorService)
+export { router as VendorRoute }

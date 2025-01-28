@@ -1,2 +1,2 @@
-export * from "./VendorRoute"
-export * from "./AdminRoute";
+export * from "./AdminRoute"
+export * from "./VendorRoute";
