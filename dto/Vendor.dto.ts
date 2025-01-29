@@ -1,7 +1,7 @@
 export interface CreateVendorInput {
     name: string;
     ownerName: string;
-    foodType: [ string ];
+    foodType: Array<string>;
     pincode: number;
     address: string;
     phone: string;
@@ -16,5 +16,5 @@ export interface VendorProfile {
     _id: string;
     name: string;
     email: string;
-    foodType: [ string ];
+    foodType: Array<string>;
 }

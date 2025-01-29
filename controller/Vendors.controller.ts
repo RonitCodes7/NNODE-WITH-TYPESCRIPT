@@ -3,6 +3,7 @@ import { VendorLoginInputs } from "../dto";
 import { findVendor } from "./Admins.controller";
 import { generateSignature, validatePassword } from "../utility";
 import Vendor from "../model/Vendor.model";
+import Food from "../model/Food.model"
 
 export const vendorLogin = async(req: Request, res:Response, next:NextFunction) =>{
   const { email, password } = <VendorLoginInputs>req.body
@@ -37,5 +38,14 @@ export const updateVendorService = async(req: Request, res:Response, next:NextFu
   if( updateVendorDetails ){
     return res.json({ message: "Updated Successfully"});
   }
-  return res.json({ message: "Updation failed "})
+  return res.json({ message: "Updation failed updateVendorDetails"})
+}
+
+export const addFoodForSingleVendor = async(req: Request, res: Response, next: NextFunction) => {
+  const { user } = req;
+  const files = req.files as [Express.Multer.File]
+  const images = files.map((file: Express.Multer.File) => file.filename)
+  const food = await Food.create({ ...req.body, vendorId: user?._id, images: images})
+  await Vendor.updateOne({_id: user?._id},{$push: { foods: food }})
+  return res.json({ message: " Food Added Successfully "})
 }
